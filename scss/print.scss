@@ -1,0 +1,15 @@
+// main: main.scss
+
+@media print {
+    @page {
+        margin: 0;
+    }
+    body,
+    html {
+        margin: 0;
+    }
+
+    #buttons {
+        display: none;
+    }
+}

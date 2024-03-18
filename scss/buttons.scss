@@ -1,0 +1,45 @@
+// main: main.scss
+
+#buttons * {
+    background: $gray;
+
+    border-radius: 50%;
+    cursor: pointer;
+    display: inline-block;
+    font-family: "Fontello";
+    font-size: $button-size;
+    height: $button-size;
+    margin-right: 1em;
+    position: relative;
+    text-align: center;
+    width: $button-size;
+
+    &::after {
+        color: $medium-gray;
+        display: inline-block;
+        left: 0;
+        line-height: $button-size;
+        position: absolute;
+        visibility: visible;
+        width: $button-size;
+    }
+}
+#file-input {
+    display: none;
+}
+#print {
+    &::after {
+        content: "\e801";
+    }
+}
+#save {
+    &::after {
+        content: "\e800";
+    }
+}
+#import {
+    &::after {
+        // content: "jonas";
+        content: "\e802";
+    }
+}
