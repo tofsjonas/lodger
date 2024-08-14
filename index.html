@@ -1,180 +1,307 @@
 <!DOCTYPE html>
 
 <html lang="en">
+  <head>
+    <meta name="charset" content="UTF-8" />
+    <meta name="author" content="Jonas Earendel" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta
+      name="description"
+      content="A contract between a landlord and a lodger/roomer"
+    />
+    <title>Lodger contract</title>
+    <link href="lodger.min.css" rel="stylesheet" />
+  </head>
 
-<head>
-  <meta name="charset" content="UTF-8">
-  <meta name="author" content="Jonas Earendel">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="A contract between a landlord and a lodger/roomer">
-  <title>Lodger contract</title>
-  <link href="lodger.min.css" rel="stylesheet">
-</head>
+  <body>
+    <h1>Lodger contract</h1>
+    <div id="buttons">
+      <a id="print" title="Print"></a>
+      <a id="save" title="Save to file"></a>
+      <label id="import" title="Import from file" for="file-input"></label>
+      <input type="file" name="the_file" id="file-input" />
+    </div>
+    <form onsubmit="return false;" action="/" method="post">
+      <h2>Landlord</h2>
+      <table>
+        <tr>
+          <td>
+            <label>Name</label
+            ><input type="text" name="landlord[name]" value="" />
+          </td>
+          <td>
+            <label>Phone</label
+            ><input type="text" name="landlord[phone]" value="" />
+          </td>
+          <td>
+            <label>Email</label
+            ><input type="email" name="landlord[email]" value="" />
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <label>ID (Pnr/SSN/passport nbr/..)</label
+            ><input type="text" name="landlord[id]" value="" />
+          </td>
+          <td colspan="2">
+            <label>Address/Other</label
+            ><input type="text" name="landlord[other]" value="" />
+          </td>
+        </tr>
+      </table>
+      <h2>Tenant or tenants</h2>
+      <table>
+        <tr>
+          <td>
+            <label>Name</label
+            ><input type="text" name="tenant[name]" value="" />
+          </td>
+          <td>
+            <label>Name</label
+            ><input type="text" name="tenant2[name]" value="" />
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <label>Phone</label
+            ><input type="text" name="tenant[phone]" value="" />
+          </td>
+          <td>
+            <label>Phone</label
+            ><input type="text" name="tenant2[phone]" value="" />
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <label>Email</label
+            ><input type="email" name="tenant[email]" value="" />
+          </td>
+          <td>
+            <label>Email</label
+            ><input type="email" name="tenant2[email]" value="" />
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <label>ID (Pnr/SSN/passport nbr/..)</label
+            ><input type="text" name="tenant[id]" value="" />
+          </td>
+          <td>
+            <label>ID (Pnr/SSN/passport nbr/..)</label
+            ><input type="text" name="tenant2[id]" value="" />
+          </td>
+        </tr>
+      </table>
+      <h2>Rental Item</h2>
+      <table class="item">
+        <tr>
+          <td>
+            <label>Complete Address</label>
+            <textarea name="item[address]" rows="3" cols="19"></textarea>
+          </td>
+          <td>
+            <label>Legal name</label
+            ><input type="text" name="item[name]" value="" />
+          </td>
+        </tr>
+      </table>
+      <h2>Agreement</h2>
+      <ol>
+        <li>
+          The Landlord(LD) rents to the Tenant(TE) for residential purposes
+          <input type="text" size="3" maxlength="2" name="rooms" value="" />
+          room(s). The living space is
+          <input type="text" size="4" maxlength="3" name="area" value="" />
+          m<sup>2</sup>
+        </li>
+        <li>
+          Rental period from
+          <input type="date" name="period[start]" value="" size="12" />
+          <label
+            ><input
+              type="radio"
+              name="period[duration]"
+              value="notice"
+              checked
+            />
+            until further notice</label
+          >
 
-<body>
-  <h1>Lodger contract</h1>
-  <div id="buttons">
-    <a id="print" title="Print"></a>
-    <a id="save" title="Save to file"></a>
-    <label id="import" title="Import from file" for="file-input"></label>
-    <input type="file" name="the_file" id="file-input">
-  </div>
-  <form onsubmit="return false;" action="/" method="post">
-    <h2>Landlord</h2>
-    <table>
-      <tr>
-        <td><label>Name</label><input type="text" name="landlord[name]" value=""></td>
-        <td><label>Phone</label><input type="text" name="landlord[phone]" value=""></td>
-        <td><label>Email</label><input type="email" name="landlord[email]" value=""></td>
-      </tr>
-      <tr>
-        <td><label>ID (Pnr/SSN/passport nbr/..)</label><input type="text" name="landlord[id]" value=""></td>
-        <td colspan="2"><label>Address/Other</label><input type="text" name="landlord[other]" value=""></td>
-      </tr>
-    </table>
-    <h2>Tenant or tenants</h2>
-    <table>
-      <tr>
-        <td><label>Name</label><input type="text" name="tenant[name]" value=""></td>
-        <td><label>Name</label><input type="text" name="tenant2[name]" value=""></td>
-      </tr>
-      <tr>
-        <td><label>Phone</label><input type="text" name="tenant[phone]" value=""></td>
-        <td><label>Phone</label><input type="text" name="tenant2[phone]" value=""></td>
-      </tr>
-      <tr>
-        <td><label>Email</label><input type="email" name="tenant[email]" value=""></td>
-        <td><label>Email</label><input type="email" name="tenant2[email]" value=""></td>
-      </tr>
-      <tr>
-        <td><label>ID (Pnr/SSN/passport nbr/..)</label><input type="text" name="tenant[id]" value=""></td>
-        <td><label>ID (Pnr/SSN/passport nbr/..)</label><input type="text" name="tenant2[id]" value=""></td>
-      </tr>
-    </table>
-    <h2>Rental Item</h2>
-    <table class="item">
-      <tr>
-        <td><label>Complete Address</label>
-          <textarea name="item[address]" rows="3" cols="19"></textarea>
-        </td>
-        <td><label>Legal name</label><input type="text" name="item[name]" value=""></td>
-      </tr>
-    </table>
-    <h2>Agreement</h2>
-    <ol>
-      <li>The Landlord(LD) rents to the Tenant(TE) for residential purposes
-                    <input type="text" size="3" maxlength="2" name="rooms" value="">
-                    room(s). The living space is
-                    <input type="text" size="4" maxlength="3" name="area" value=""> m<sup>2</sup>
-                </li>
-      <li>
-                    Rental period from <input type="date" name="period[start]" value="" size="12">
-                    <label><input type="radio" name="period[duration]" value="notice" checked> until further
-                        notice</label>
-
-                    <label><input type="radio" name="period[duration]" value="date"> until</label>
-                    <input type="date" name="period[end]" value="" size="12"><br>
-                    The lease expires at the month-end that occurs within
-                    <input type="text" name="period[notice]" value="" size="2"> months of termination.
-                </li>
-      <li>
-                    The rent is <input type="text" name="rent[amount]" value="" size="7">
-                    <input type="text" name="rent[currency]" maxlength="3" value="SEK" size="4"> per month.
-                </li>
-      <li>
-                    The deposit is <input type="text" name="rent[deposit]" value="" size="7">
-                    <input type="text" name="rent[currency]" maxlength="3" value="SEK" size="4">,
-                    to be returned upon TE moving out, minus eventual costs for cleaning and damages.<br>
-                    LD confirms payment of deposit: <span style="width:13rem;"></span> (name/date)
-                </li>
-      <li>
-                    The rent is paid in advance, <input type="text" name="rent[margin]" value="" size="2">
-                    days before the start of the month and is credited to account number:
-                    <input type="text" name="rent[account]" value=""> in the bank:
-                    <input type="text" name="rent[bank]" value="">
-                </li>
-      <li>Included in rent:<br>
-                    <label><input type="checkbox" name="inc[electricity]"> Electricity</label>
-                    <label><input type="checkbox" name="inc[heat]"> Heating</label>
-                    <label><input type="checkbox" name="inc[gas]"> Gas</label>
-                    <label><input type="checkbox" name="inc[cleaning]">Cleaning</label>
-                    <label><input type="checkbox" name="inc[stairs]">Stair Cleaning</label>
-                    <label><input type="checkbox" name="inc[insurance]"> Home Insurance</label>
-                    <label><input type="checkbox" name="inc[cable]"> CableTV</label>
-                    <label><input type="checkbox" name="inc[broadband]"> Broadband/wifi</label>
-                </li>
-      <li>
-                    Residential space to be rented:
-                    <label><input type="radio" name="furnished" value="yes"> Furnished</label>
-                    <label><input type="radio" name="furnished" value="no"> Unfurnished</label>
-                </li>
-      <li>
-                    Access is given to:
-                    <label><input type="checkbox" name="access[kitchen]"> Kitchen</label>
-                    <label><input type="checkbox" name="access[laundry]"> Laundry</label>
-                    <label><input type="checkbox" name="access[bathroom]"> Bathroom</label>
-                    <label><input type="checkbox" name="access[communal]"> Communal space</label>
-                </li>
-      <li>
-                    Pets are
-                    <input type="radio" name="pets" value="yes"> allowed
-                    <input type="radio" name="pets" value="no"> not allowed
-                </li>
-      <li>
-                    Smoking is
-                    <input type="radio" name="smoking" value="yes"> allowed
-                    <input type="radio" name="smoking" value="no"> not allowed
-                </li>
-      <li>
-                    Responsibility for proper functioning of vital devices such as power switches,
-                    washing machines, water faucet gaskets etc. lie on LD, either directly or in
-                    accordance with agreements with an eventual property owner.
-                </li>
-      <li>
-                    TE may not, without LD's written permission, perform painting, putting up wallpaper, or similar
-                    actions.
-                </li>
-      <li>
-                    TE should carefully care for and take care of the property.
-                    Should damage occur, TE answers to this, unless TE can show that neither TE nor any
-                    under TE's responsibility caused the damage.
-                </li>
-      <li>
-                    TE may not sublet any part of the accommodation space without permission.
-                </li>
-      <li>
-                    It is the responsibility of LD to obtain any permits for rental from the property owner.
-                </li>
-      <li>
-                    TE undertakes to respect the rules of the landlord's in relation to the property owner.
-                </li>
-      <li>
-                    This lease has been drawn up in two identical copies, one for LD and one for TE.
-                </li>
-      <li>
-                    TE receives <input type="text" name="keys" value="" size="4"> keys, to be returned when moving
-                    out.<br>
-                    Keys received by TE: <span style="width:17rem;"></span> (name/date)<br>
-                    Keys returned to LD: <span style="width:17rem;"></span> (name/date)
-                </li>
-      <li>
-                    Number of appendices: <input type="text" name="appendices" value="" size="4">
-                </li>
-    </ol>
-    <h2>Signatures</h2>
-    <table>
-      <tr>
-        <td><label>Landlord (name/date)</label> <span></span></td>
-        <td><label>Tenant (name/date)</label> <span></span></td>
-        <td><label>Tenant (name/date)</label> <span></span></td>
-      </tr>
-      <tr>
-        <td><label>Name clarification</label><input type="text" name="signature[landlord]" value=""></td>
-        <td><label>Name clarification</label><input type="text" name="signature[tenant]" value=""></td>
-        <td><label>Name clarification</label><input type="text" name="signature2[tenant]" value=""></td>
-      </tr>
-    </table>
-  </form>
-  <script src="lodger.min.js"></script>
-</body>
+          <label
+            ><input type="radio" name="period[duration]" value="date" />
+            until</label
+          >
+          <input type="date" name="period[end]" value="" size="12" /><br />
+          The lease expires at the month-end that occurs within
+          <input type="text" name="period[notice]" value="" size="2" /> months
+          of termination.
+        </li>
+        <li>
+          The rent is
+          <input type="text" name="rent[amount]" value="" size="7" />
+          <input
+            type="text"
+            name="rent[currency]"
+            maxlength="3"
+            value="SEK"
+            size="4"
+          />
+          per month.
+        </li>
+        <li>
+          The deposit is
+          <input type="text" name="rent[deposit]" value="" size="7" />
+          <input
+            type="text"
+            name="rent[currency]"
+            maxlength="3"
+            value="SEK"
+            size="4"
+          />, to be returned upon TE moving out, minus eventual costs for
+          cleaning and damages.<br />
+          LD confirms payment of deposit:
+          <span style="width: 13rem"></span> (name/date)
+        </li>
+        <li>
+          The rent is paid in advance,
+          <input type="text" name="rent[margin]" value="" size="2" />
+          days before the start of the month and is credited to account number:
+          <input type="text" name="rent[account]" value="" /> in the bank:
+          <input type="text" name="rent[bank]" value="" />
+        </li>
+        <li>
+          Included in rent:<br />
+          <label
+            ><input type="checkbox" name="inc[electricity]" />
+            Electricity</label
+          >
+          <label><input type="checkbox" name="inc[heat]" /> Heating</label>
+          <label><input type="checkbox" name="inc[gas]" /> Gas</label>
+          <label><input type="checkbox" name="inc[cleaning]" />Cleaning</label>
+          <label
+            ><input type="checkbox" name="inc[stairs]" />Stair Cleaning</label
+          >
+          <label
+            ><input type="checkbox" name="inc[insurance]" /> Home
+            Insurance</label
+          >
+          <label><input type="checkbox" name="inc[cable]" /> CableTV</label>
+          <label
+            ><input type="checkbox" name="inc[broadband]" />
+            Broadband/wifi</label
+          >
+        </li>
+        <li>
+          Residential space to be rented:
+          <label
+            ><input type="radio" name="furnished" value="yes" />
+            Furnished</label
+          >
+          <label
+            ><input type="radio" name="furnished" value="no" />
+            Unfurnished</label
+          >
+        </li>
+        <li>
+          Access is given to:
+          <label
+            ><input type="checkbox" name="access[kitchen]" /> Kitchen</label
+          >
+          <label
+            ><input type="checkbox" name="access[laundry]" /> Laundry</label
+          >
+          <label
+            ><input type="checkbox" name="access[bathroom]" /> Bathroom</label
+          >
+          <label
+            ><input type="checkbox" name="access[communal]" /> Communal
+            space</label
+          >
+        </li>
+        <li>
+          Pets are
+          <input type="radio" name="pets" value="yes" /> allowed
+          <input type="radio" name="pets" value="no" /> not allowed
+        </li>
+        <li>
+          Smoking is
+          <input type="radio" name="smoking" value="yes" /> allowed
+          <input type="radio" name="smoking" value="no" /> not allowed
+        </li>
+        <li>
+          Responsibility for proper functioning of vital devices such as power
+          switches, washing machines, water faucet gaskets etc. lie on LD,
+          either directly or in accordance with agreements with an eventual
+          property owner.
+        </li>
+        <li>
+          TE may not, without LD's written permission, perform painting, putting
+          up wallpaper, or similar actions.
+        </li>
+        <li>
+          TE must participate in the rotating cleaning schedule as defined by
+          LD. TE is responsible for completing assigned cleaning tasks during
+          their designated week. If TE fails to complete assigned tasks, LD may
+          hire a cleaning service, the full cost of which will be billed to TE.
+          Repeated failures to comply may result in termination of the rental
+          agreement.
+        </li>
+        <li>
+          TE should carefully care for and take care of the property. Should
+          damage occur, TE answers to this, unless TE can show that neither TE
+          nor any under TE's responsibility caused the damage.
+        </li>
+        <li>
+          TE may not sublet any part of the accommodation space without
+          permission.
+        </li>
+        <li>
+          It is the responsibility of LD to obtain any permits for rental from
+          the property owner.
+        </li>
+        <li>
+          TE undertakes to respect the rules of the landlord's in relation to
+          the property owner.
+        </li>
+        <li>
+          This lease has been drawn up in two identical copies, one for LD and
+          one for TE.
+        </li>
+        <li>
+          TE receives <input type="text" name="keys" value="" size="4" /> keys,
+          to be returned when moving out.<br />
+          Keys received by TE:
+          <span style="width: 17rem"></span> (name/date)<br />
+          Keys returned to LD: <span style="width: 17rem"></span> (name/date)
+        </li>
+        <li>
+          Number of appendices:
+          <input type="text" name="appendices" value="" size="4" />
+        </li>
+      </ol>
+      <h2>Signatures</h2>
+      <table>
+        <tr>
+          <td><label>Landlord (name/date)</label> <span></span></td>
+          <td><label>Tenant (name/date)</label> <span></span></td>
+          <td><label>Tenant (name/date)</label> <span></span></td>
+        </tr>
+        <tr>
+          <td>
+            <label>Name clarification</label
+            ><input type="text" name="signature[landlord]" value="" />
+          </td>
+          <td>
+            <label>Name clarification</label
+            ><input type="text" name="signature[tenant]" value="" />
+          </td>
+          <td>
+            <label>Name clarification</label
+            ><input type="text" name="signature2[tenant]" value="" />
+          </td>
+        </tr>
+      </table>
+    </form>
+    <script src="lodger.js"></script>
+  </body>
 </html>
