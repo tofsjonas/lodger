@@ -22,76 +22,50 @@
       <input type="file" name="the_file" id="file-input" />
     </div>
     <form onsubmit="return false;" action="/" method="post">
-      <h2>Landlord</h2>
+      <h2>Parties</h2>
       <table>
-        <tr>
-          <td>
-            <label>Name</label
-            ><input type="text" name="landlord[name]" value="" />
-          </td>
-          <td>
-            <label>Phone</label
-            ><input type="text" name="landlord[phone]" value="" />
-          </td>
-          <td>
-            <label>Email</label
-            ><input type="email" name="landlord[email]" value="" />
-          </td>
-        </tr>
-        <tr>
-          <td>
-            <label>ID (Pnr/SSN/passport nbr/..)</label
-            ><input type="text" name="landlord[id]" value="" />
-          </td>
-          <td colspan="2">
-            <label>Address/Other</label
-            ><input type="text" name="landlord[other]" value="" />
-          </td>
-        </tr>
+        <thead>
+          <th>LandLord</th>
+          <th>Tenant 1</th>
+          <th>Tenant 2</th>
+        </thead>
+        <tbody>
+          <tr>
+            <td>
+              <label>Name</label
+              ><input type="text" name="landlord[name]" value="" />
+              <label>Phone</label
+              ><input type="text" name="landlord[phone]" value="" />
+              <label>Email</label
+              ><input type="email" name="landlord[email]" value="" />
+              <label>ID (Pnr/SSN/passport nbr/..)</label
+              ><input type="text" name="landlord[id]" value="" />
+            </td>
+            <td>
+              <label>Name</label
+              ><input type="text" name="tenant[name]" value="" />
+              <label>Phone</label
+              ><input type="text" name="tenant[phone]" value="" />
+              <label>Email</label
+              ><input type="email" name="tenant[email]" value="" />
+
+              <label>ID (Pnr/SSN/passport nbr/..)</label
+              ><input type="text" name="tenant[id]" value="" />
+            </td>
+            <td>
+              <label>Name</label
+              ><input type="text" name="tenant2[name]" value="" />
+              <label>Phone</label
+              ><input type="text" name="tenant2[phone]" value="" />
+              <label>Email</label
+              ><input type="email" name="tenant2[email]" value="" />
+              <label>ID (Pnr/SSN/passport nbr/..)</label
+              ><input type="text" name="tenant2[id]" value="" />
+            </td>
+          </tr>
+        </tbody>
       </table>
-      <h2>Tenant or tenants</h2>
-      <table>
-        <tr>
-          <td>
-            <label>Name</label
-            ><input type="text" name="tenant[name]" value="" />
-          </td>
-          <td>
-            <label>Name</label
-            ><input type="text" name="tenant2[name]" value="" />
-          </td>
-        </tr>
-        <tr>
-          <td>
-            <label>Phone</label
-            ><input type="text" name="tenant[phone]" value="" />
-          </td>
-          <td>
-            <label>Phone</label
-            ><input type="text" name="tenant2[phone]" value="" />
-          </td>
-        </tr>
-        <tr>
-          <td>
-            <label>Email</label
-            ><input type="email" name="tenant[email]" value="" />
-          </td>
-          <td>
-            <label>Email</label
-            ><input type="email" name="tenant2[email]" value="" />
-          </td>
-        </tr>
-        <tr>
-          <td>
-            <label>ID (Pnr/SSN/passport nbr/..)</label
-            ><input type="text" name="tenant[id]" value="" />
-          </td>
-          <td>
-            <label>ID (Pnr/SSN/passport nbr/..)</label
-            ><input type="text" name="tenant2[id]" value="" />
-          </td>
-        </tr>
-      </table>
+
       <h2>Rental Item</h2>
       <table class="item">
         <tr>
@@ -243,8 +217,8 @@
           LD. TE is responsible for completing assigned cleaning tasks during
           their designated week. If TE fails to complete assigned tasks, LD may
           hire a cleaning service, the full cost of which will be billed to TE.
-          Repeated failures to comply may result in termination of the rental
-          agreement.
+          Repeated failures to comply may result in penalties or termination of
+          the rental agreement.
         </li>
         <li>
           TE should carefully care for and take care of the property. Should
