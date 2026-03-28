@@ -1,32 +1,22 @@
-/*jslint browser: true */
-/*global document window setTimeout localStorage*/
-
 (function (document, localStorage) {
-  "use strict";
-
+  const form = document.querySelector("form");
   var file_input = document.getElementById("file-input");
-  var form = document.querySelector("form");
 
-  file_input.addEventListener("change", function (e) {
-    var file = file_input.files[0];
-    var text_type = /.json$/;
-
-    if (file.type.match(text_type)) {
-      var reader = new FileReader();
-
-      reader.onload = function (e) {
-        values = JSON.parse(reader.result);
-        // console.log( values );
-        for (var i in values) {
-          setFormValue(form, i, values[i]);
+  function form2array(frm) {
+    var result = {};
+    Array.prototype.slice.call(frm.elements).forEach(function (element) {
+      var name = element.name;
+      if (element.type === "radio") {
+        if (element.checked) {
+          result[name] = element.value;
         }
-      };
-
-      reader.readAsText(file);
-    } else {
-      console.log("File not supported!");
-    }
-  });
+      } else {
+        result[name] =
+          element.checked || element.type !== "checkbox" ? element.value : "";
+      }
+    });
+    return result;
+  }
 
   function setFormValue(form, name, value) {
     var elements = form.querySelectorAll('[name="' + name + '"]');
@@ -44,22 +34,6 @@
           element.value = value;
       }
     }
-  }
-
-  function form2array(frm) {
-    var result = {};
-    Array.prototype.slice.call(frm.elements).forEach(function (element) {
-      var name = element.name;
-      if (element.type === "radio") {
-        if (element.checked) {
-          result[name] = element.value;
-        }
-      } else {
-        result[name] =
-          element.checked || element.type !== "checkbox" ? element.value : "";
-      }
-    });
-    return result;
   }
 
   function saveTextFile(e) {
@@ -89,14 +63,72 @@
   document.getElementById("save").onclick = saveTextFile;
   document.getElementById("print").onclick = printDoc;
 
-  //autosave to localStorage
-  document.addEventListener("change", function (e) {
-    localStorage.lodger = JSON.stringify(form2array(form));
+  // Debounce function to limit how often the URL is updated
+  function debounce(func, delay) {
+    let timeout;
+    return function (...args) {
+      clearTimeout(timeout);
+      timeout = setTimeout(() => func.apply(this, args), delay);
+    };
+  }
+
+  // Update the URL with the JSON data
+  function updateURLWithJSON() {
+    const json = JSON.stringify(form2array(form));
+    const encodedJSON = encodeURIComponent(json);
+    const newURL = `${window.location.pathname}?json=${encodedJSON}`;
+    history.replaceState(null, "", newURL);
+  }
+
+  // Populate the form from the JSON query parameter
+  function populateFormFromQuery() {
+    const params = new URLSearchParams(window.location.search);
+    const json = params.get("json");
+    if (json) {
+      try {
+        const values = JSON.parse(decodeURIComponent(json));
+        for (const key in values) {
+          setFormValue(form, key, values[key]);
+        }
+      } catch (e) {
+        console.error("Invalid JSON in URL query parameter:", e);
+      }
+    }
+  }
+
+  file_input.addEventListener("change", function (e) {
+    var file = file_input.files[0];
+    var text_type = /.json$/;
+
+    if (file.type.match(text_type)) {
+      var reader = new FileReader();
+
+      reader.onload = function (e) {
+        values = JSON.parse(reader.result);
+        // console.log( values );
+        for (var i in values) {
+          setFormValue(form, i, values[i]);
+        }
+      };
+
+      reader.readAsText(file);
+    } else {
+      console.log("File not supported!");
+    }
   });
 
-  // auto-resize textarea
+  // Autosave to localStorage and update URL
+  document.addEventListener(
+    "input",
+    debounce(function (e) {
+      localStorage.lodger = JSON.stringify(form2array(form));
+      updateURLWithJSON();
+    }, 300)
+  );
+
+  // Auto-resize textarea
   document.addEventListener("keypress", function (e) {
-    var object = e.target;
+    const object = e.target;
     if (object.nodeName === "TEXTAREA") {
       setTimeout(function () {
         object.style.height = "auto"; // auto must be set first
@@ -105,15 +137,13 @@
     }
   });
 
-  var values = {};
-  var json_str = localStorage.lodger;
+  // Populate form from localStorage or URL query parameter
+  const json_str = localStorage.lodger;
   if (json_str) {
-    values = JSON.parse(json_str);
-    // console.log( values );
-    for (var i in values) {
-      setFormValue(form, i, values[i]);
+    const values = JSON.parse(json_str);
+    for (const key in values) {
+      setFormValue(form, key, values[key]);
     }
   }
-
-  // window.onload = function () {};
+  populateFormFromQuery();
 })(document, localStorage);
